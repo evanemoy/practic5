@@ -29,18 +29,18 @@ def index():
     return render_template('index.html', contacts=contacts)
 
 # Добавление нового контакта
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/add', methods=['POST'])
 def add_contact():
     if request.method == 'POST':
-        name = request.form['name']
-        phone = request.form['phone']
+        data = request.get_json()  # Получаем данные в формате JSON
+        name = data.get('name')
+        phone = data.get('phone')
         conn = sqlite3.connect('contacts.db')
         c = conn.cursor()
         c.execute('INSERT INTO contacts (name, phone) VALUES (?, ?)', (name, phone))
         conn.commit()
         conn.close()
         return redirect(url_for('index'))
-    return render_template('add_contact.html')
 
 # Удаление контакта
 @app.route('/delete/<int:id>')
