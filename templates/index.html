@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contacts App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
 </head>
 <body>
-    <h1>Contacts List</h1>
-    <form action="/add" method="POST">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="text" name="phone" placeholder="Phone" required>
-        <button type="submit">Add Contact</button>
-    </form>
-
+    <h1>Список контактов</h1>
     <ul>
         {% for contact in contacts %}
-            <li>{{ contact[0] }} - {{ contact[1] }}</li>
+        <li>{{ contact[1] }}: {{ contact[2] }} - <a href="/delete/{{ contact[0] }}">Удалить</a></li>
         {% endfor %}
     </ul>
+    <a href="/add">Добавить контакт</a>
 </body>
 </html>
